@@ -13,24 +13,34 @@ module.exports = {
     reasons: true,
     errorDetails: true
   },
+  mode: 'development',
   output: {
     path: `${__dirname}/dist`,
-    filename: '[name].js',
-    libraryTarget: 'commonjs2'
+    filename: '[name].js'
   },
   target: 'node',
   resolve: {
     modules: [`${__dirname}/../../`, 'node_modules']
   },
-  plugins: [
-    new webpack.optimize.CommonsChunkPlugin({ 
-      name: 'vendor', 
-      filename: 'vendor.bundle.js' 
-    }),
-  ],
   resolveLoader: {
     alias: {
       'ramda-loader': `${__dirname}/../`
+    }
+  },
+  optimization: {
+    runtimeChunk: "single", // enable "runtime" chunk
+    namedChunks: true,
+    splitChunks: {
+      cacheGroups: {
+        default: {
+          test: /[\\/]node_modules[\\/]/,
+          name: "vendor"
+        },
+        sample: {
+
+          name: "sample"
+        }
+      }
     }
   },
   module: {

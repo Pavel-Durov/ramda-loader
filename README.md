@@ -22,21 +22,21 @@ Add the loader to your `webpack.config.js`:
 module.exports = {
     // ...
     module: {
-      loaders: [
+      rules: [
         {
           test: /\.js$/,
           exclude: /node_modules/,
-          loader: 'ramda-loader',
-          query: {
-            debug: true, // Will wrap Ramda functions in error handles with file name, line number and char location
-            strict: true, // Will disallow variables that have the same name as Ramda functions
-            imports: true // Will add import statements for every Ramda function found
-          }
+          loader: 'ramda-loader?debug=true&strict=true&imports=true'
         }
       ]
     }
 }
 ```
+debug - Will wrap Ramda functions in error handles with file name, line number and char location
+
+strict -  Will disallow variables that have the same name as Ramda functions
+
+imports -  Will add import statements for every Ramda function found
 
 Description
 ----------
