@@ -28,6 +28,7 @@ module.exports = {
     }
   },
   optimization: {
+    minimize: false,
     runtimeChunk: "single", // enable "runtime" chunk
     namedChunks: true,
     splitChunks: {
@@ -37,7 +38,7 @@ module.exports = {
           name: "vendor"
         },
         sample: {
-
+          test: /[\\/]node_modules[\\/]/,
           name: "sample"
         }
       }

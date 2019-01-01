@@ -12,7 +12,7 @@ var clone = require('ramda').clone
 
 const compile = (file, config, cb) => {
   config.entry.sample = `${__dirname}/../sample/src/${file}`
-  config.output.filename = `${file}`
+  config.output.filename = file
   config.output.path = `${__dirname}/../sample/dist`
   webpack(config).run((err, stat) => {
     cb(stat.compilation.errors, stat)
@@ -25,7 +25,7 @@ const compileFn = (file, cb) => {
   delete conf.plugins
   delete conf.module.noParse
   compile(file, conf, () => {
-    const fileName = `${__dirname}/../sample/dist/sample.${file}`;
+    const fileName = `${__dirname}/../sample/dist/${file}`;
     cb(require(fileName))
   })
 }
@@ -42,7 +42,6 @@ describe('loader tests', () => {
       compile(file, config, (errors, stat) => {
         let source = fs.readFileSync(`${__dirname}/../sample/dist/sample.${file}`, 'utf-8')
         let result = wrapper.regex.exec(source)
-        // expect(errors[0]).to.equal('?')
         expect(errors.length).to.equal(0)
         expect(result).to.not.be.null
         done()
